@@ -9,7 +9,7 @@
     <table border="5">
         <tr>
             <p>
-            {{-- 必要事項 --}}
+                {{-- 必要事項 --}}
                 <th>顧客ID</th>
                 <th>名前</th>
                 <th>メールアドレス</th>
@@ -21,10 +21,10 @@
 
         <tr>
             <p>
-            {{-- お客様情報 --}}
+                {{-- お客様情報 --}}
                 <td>{{ $customer->id }}</td>
                 <td>{{ $customer->name }}</td>
-                <td>{{ $customer->email}}</td>
+                <td>{{ $customer->email }}</td>
                 <td>{{ $customer->postcode }}</td>
                 <td>{{ $customer->address }}</td>
                 <td>{{ $customer->ter }}</td>
@@ -32,18 +32,19 @@
         </tr>
     </table>
 
-    
-        {{-- <a href="/customers">戻る</a>   --}}
+
+    {{-- <a href="/customers">戻る</a>   --}}
     {{-- {{ <button> -- }}
         <a href="{{ route('customers')}}">戻る</a>
     </button> --}}
-    <p>
-        <button>
-            <a href="/customers/{{ $customer->id }}/edit">編集画面</a>
-        </button>
-    </p>
 
-    <button type="button" onClick="history.back()">戻る</button>
-    @endsection
+    <button type="button" onclick="location.href='{{ route('customers.edit', $customer) }}'">編集画面</button><br>
 
+    <form action="{{ route('customers.destroy', $customer) }}" id="form_recipe" method="post">
+        @csrf
+        @method('DELETE')
+        <input type="submit" value="削除する" onclick="if(!confirm('削除しますか？')){return false};">
+    </form>
 
+    <button tyepe="button" onclick="location.href='{{ route('customers.index') }}'">一覧へ戻る</button>
+@endsection

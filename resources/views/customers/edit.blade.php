@@ -24,8 +24,17 @@
         </div> --}}
 
 
-    <p>
-    <form action="/custmers/{{ $customer->id }}" method="post">
+
+
+    @if ($errors->any())
+        <div class="error">
+            <p>{{ count($errors) }}件のエラーがあります。</p>
+            @foreach ($errors->all() as $error)
+                <p>{{ $error }}</p>
+            @endforeach
+        </div>
+    @endif
+    <form action="{{  route('customers.update', $customer) }}" method="post">
         @csrf
         @method('PATCH')
 
@@ -49,9 +58,12 @@
 
         {{-- 住所 --}}
         <p>
-            <label for="radius">住所</label>
-            <textarea type="string" name="address" value="{{ old('address', $customer->address) }}"></textarea>
+            {{-- <label for="radius">住所</label>
+            <textarea type="address" value="{{ old('address', $customer->address) }}"></textarea> --}}
+            <label for="address">本文</label>
+            <textarea name="address" class="address">{{ old('address', $customer->address) }}</textarea>
         </p>
+        
 
         {{-- 電話番号 --}}
         <p>
@@ -59,11 +71,9 @@
             <input type="string" name="ter" value="{{ old('ter', $customer->ter) }}">
         </p>
 
-        <p>
+        <div>
             <input type="submit" value="更新">
-        </p>
-        <button>
-            <a href="/customers/">戻る</a>
-        </button>
+        </div>
     </form>
+    <button tyepe="button" onclick="location.href='{{ route('customers.show', $customer) }}'">戻る</button>
 @endsection

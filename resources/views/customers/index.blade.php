@@ -43,7 +43,7 @@
 
     {{-- 新規作成ボタン --}}
     <button>
-        <a href="{{ route('customers.create') }}">新規作成</a>
+        <a href="{{ route('customers.search') }}">新規作成</a>
     </button>
 
 
